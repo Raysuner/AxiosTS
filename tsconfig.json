@@ -1,12 +1,12 @@
 {
-  "include": ["./src/**/*.ts"],
-  "exclude": ["./src/**/__tests__"],
+  "include": ["./src/**/*.ts", "./examples/**/*.ts"],
+  "exclude": ["./src/**/__tests__", "./build/**"],
   "compilerOptions": {
-    "lib": ["es2020"],
+    "lib": ["es2020", "DOM"],
     "module": "commonjs",
     "target": "es2020",
 
-    "rootDir": "./src",
+    "rootDir": ".",
     "outDir": "build",
 
     "strict": true,
