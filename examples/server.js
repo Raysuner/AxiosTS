@@ -30,6 +30,10 @@ router.get("/example-01/get", (req, res) => {
   });
 });
 
+router.get("/example-02/get", (req, res) => {
+  res.json(req.query);
+});
+
 app.listen(8000, () => {
   console.log(`server listen at port 8000, press ctrl + c to stop`);
 });
