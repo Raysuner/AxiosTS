@@ -34,6 +34,10 @@ router.get("/example-02/get", (req, res) => {
   res.json(req.query);
 });
 
+router.post("/example-03/post", (req, res) => {
+  res.json(req.body);
+});
+
 app.listen(8000, () => {
   console.log(`server listen at port 8000, press ctrl + c to stop`);
 });
