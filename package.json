@@ -23,6 +23,7 @@
     "access": "public"
   },
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "setup": "node -r ./esbuild-hook ./scripts/setup",
     "prepare": "husky install",
     "build": "npm run clean && npm run type:dts && npm run build:main",
@@ -95,5 +96,8 @@
   },
   "lint-staged": {
     "*.{html,js,ts}": "prettier --write"
+  },
+  "dependencies": {
+    "axios": "^0.27.2"
   }
 }
