@@ -1,4 +1,4 @@
-import { isPlainObject } from "./base";
+import { isPlainObject } from "./type";
 
 export function transformRequestData(value: any) {
   if (isPlainObject(value)) {

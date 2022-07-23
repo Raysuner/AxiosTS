@@ -1,6 +1,7 @@
-import { isPlainObject } from "./base";
+import { AxiosResponseHeaders } from "axios";
+import { isPlainObject } from "./type";
 
-function transformHeader(headers: any, normalizedName: string) {
+function transformHeaders(headers: any, normalizedName: string) {
   Object.keys(headers).forEach((key) => {
     if (
       key !== normalizedName &&
@@ -12,9 +13,9 @@ function transformHeader(headers: any, normalizedName: string) {
   });
 }
 
-export function transformRequestHeader(headers: any, data: any) {
+export function transformRequestHeaders(headers: any, data: any) {
   const newHeaders = { ...headers };
-  transformHeader(newHeaders, "Content-Type");
+  transformHeaders(newHeaders, "Content-Type");
   if (isPlainObject(data)) {
     if (newHeaders && !newHeaders["Content-Type"]) {
       newHeaders["Content-Type"] = "application/json;charset=utf-8";
@@ -23,10 +24,20 @@ export function transformRequestHeader(headers: any, data: any) {
   return newHeaders;
 }
 
-export function setRequestHeader(xhr: XMLHttpRequest, headers: any) {
-  if (isPlainObject(headers)) {
-    Object.keys(headers).forEach((key) => {
-      xhr.setRequestHeader(key, headers[key]);
-    });
+export function transformResponseHeaders(headers: string) {
+  const parseHeaders = {} as AxiosResponseHeaders;
+  if (!headers) {
+    return parseHeaders;
   }
+  headers.split("\r\n").forEach((line) => {
+    let [key, value] = line.split(":");
+    if (key) {
+      key = key.trim().toLowerCase();
+    }
+    if (value) {
+      value = value.trim();
+    }
+    parseHeaders[key] = value;
+  });
+  return parseHeaders;
 }

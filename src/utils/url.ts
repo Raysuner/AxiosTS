@@ -1,4 +1,4 @@
-import { isDate, isObject } from "./base";
+import { isDate, isObject } from "./type";
 
 function encode(value: string) {
   return encodeURIComponent(value)
