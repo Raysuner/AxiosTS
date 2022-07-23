@@ -1,3 +1,4 @@
+import axios from "axios";
 export type Method =
   | "get"
   | "GET"
@@ -14,10 +15,27 @@ export type Method =
   | "options"
   | "OPTIONS";
 
-export interface AxiosRequestConfig {
+export type AxiosRequestHeaders = Record<string, string>;
+export interface AxiosRequestConfig<T = any> {
   url: string;
   method?: Method;
   params?: any;
-  data?: any;
-  headers?: any;
+  data?: T;
+  headers?: AxiosRequestHeaders;
+  responseType?: XMLHttpRequestResponseType;
 }
+
+export type AxiosResponseHeaders = Record<string, string> & {
+  "set-cookie"?: string[];
+};
+export interface AxiosResponse<T = any> {
+  data: T;
+  status: number;
+  statusText: string;
+  headers: AxiosResponseHeaders;
+  config: AxiosRequestConfig;
+  request: XMLHttpRequest;
+}
+
+export interface AxiosResponsePromise<T = any>
+  extends Promise<AxiosResponse<T>> {}
