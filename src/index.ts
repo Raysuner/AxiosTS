@@ -1,14 +1,15 @@
 import { AxiosRequestConfig } from "./types/axios";
 import { transformRequestUrl } from "./utils/url";
 import { transformRequestData } from "./utils/data";
-import { setRequestHeader, transformRequestHeader } from "./utils/header";
+import { transformRequestHeaders } from "./utils/header";
+import { request } from "./utils/xhr";
 
 function processConfig(config: AxiosRequestConfig) {
   const { url, params, data, headers = {} } = config;
   const newConfig: AxiosRequestConfig = {
     ...config,
     url: transformRequestUrl(url, params),
-    headers: transformRequestHeader(headers, data),
+    headers: transformRequestHeaders(headers, data),
     data: transformRequestData(data),
   };
   return newConfig;
@@ -16,9 +17,5 @@ function processConfig(config: AxiosRequestConfig) {
 
 export default function axios(config: AxiosRequestConfig) {
   const newConfig = processConfig(config);
-  const { url = "", data = null, method = "get", headers = {} } = newConfig;
-  const xhr = new XMLHttpRequest();
-  xhr.open(method.toUpperCase(), url, true);
-  setRequestHeader(xhr, headers);
-  xhr.send(data);
+  return request(newConfig);
 }
