@@ -41,8 +41,6 @@
     "webpack-hot-middleware": "^2.25.1"
   },
   "lint-staged": {
-    "**/*.{js,ts}": [
-      "pnpm run lint"
-    ]
+    "**/*.{js,ts}": "pnpm run lint"
   }
 }
