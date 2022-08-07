@@ -3,9 +3,9 @@ import {
   AxiosResponse,
   AxiosPromise
 } from '../types/axios';
-import { transformResponseHeaders } from './header';
-import { isPlainObject } from './type';
-import { createError } from './error';
+import { transformResponseHeaders } from '../utils/header';
+import { isPlainObject } from '../utils/type';
+import { createError } from '../utils/error';
 
 export function request<R = any>(config: AxiosRequestConfig): AxiosPromise<R> {
   return new Promise((resolve, reject) => {
