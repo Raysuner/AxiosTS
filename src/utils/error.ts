@@ -6,6 +6,7 @@ class AxiosError extends Error {
   public code?: number | string;
   public request?: XMLHttpRequest;
   public response?: AxiosResponse;
+  public isAxiosError: boolean;
 
   constructor(
     message: string,
@@ -20,6 +21,7 @@ class AxiosError extends Error {
     this.code = code;
     this.request = request;
     this.response = response;
+    this.isAxiosError = true;
   }
 }
 
