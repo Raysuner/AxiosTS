@@ -1,4 +1,4 @@
-import axios from '../../src/typing';
+import axios, { AxiosError } from '../../src/typing';
 
 axios({
   method: 'get',
@@ -43,6 +43,6 @@ axios({
   .then((res) => {
     console.log(res);
   })
-  .catch((e) => {
-    console.log(e.message);
+  .catch((e: AxiosError) => {
+    console.dir(e);
   });
