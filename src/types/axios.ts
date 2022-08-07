@@ -46,3 +46,53 @@ export interface AxiosError extends Error {
   config: AxiosRequestConfig;
   isAxiosError: boolean;
 }
+
+export interface Axios {
+  request<T = any, R = any>(config: AxiosRequestConfig<T>): AxiosPromise<R>;
+
+  get<T = any, R = any>(
+    url: string,
+    config?: AxiosRequestConfig<T>
+  ): AxiosPromise<R>;
+
+  delete<T = any, R = any>(
+    url: string,
+    config?: AxiosRequestConfig<T>
+  ): AxiosPromise<R>;
+
+  head<T = any, R = any>(
+    url: string,
+    config?: AxiosRequestConfig<T>
+  ): AxiosPromise<R>;
+
+  options<T = any, R = any>(
+    url: string,
+    config?: AxiosRequestConfig<T>
+  ): AxiosPromise<R>;
+
+  post<T = any, R = any>(
+    url: string,
+    data?: any,
+    config?: AxiosRequestConfig<T>
+  ): AxiosPromise<R>;
+
+  put<T = any, R = any>(
+    url: string,
+    data?: any,
+    config?: AxiosRequestConfig<T>
+  ): AxiosPromise<R>;
+
+  patch<T = any, R = any>(
+    url: string,
+    data?: any,
+    config?: AxiosRequestConfig<T>
+  ): AxiosPromise<R>;
+}
+
+export interface AxiosInstance extends Axios {
+  <T = any, R = any>(config: AxiosRequestConfig<T>): AxiosPromise<R>;
+  <T = any, R = any>(
+    url: string,
+    config?: AxiosRequestConfig<T>
+  ): AxiosPromise<R>;
+}
