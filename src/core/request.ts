@@ -1,8 +1,8 @@
-import { AxiosRequestConfig } from '../types/axios';
+import { AxiosPromise, AxiosRequestConfig } from '../types/axios';
 import { transformRequestUrl } from '../utils/url';
 import { transformRequestData, transformResponseData } from '../utils/data';
 import { transformRequestHeaders } from '../utils/header';
-import { request } from './xhr';
+import { xhrRequest } from './xhr';
 
 function processConfig(config: AxiosRequestConfig) {
   const { url, params, data, headers = {} } = config;
@@ -15,10 +15,10 @@ function processConfig(config: AxiosRequestConfig) {
   return newConfig;
 }
 
-async function axios(config: AxiosRequestConfig) {
+async function request<T, R>(config: AxiosRequestConfig<T>): AxiosPromise<R> {
   const newConfig = processConfig(config);
-  const res = await request(newConfig);
+  const res = await xhrRequest<T, R>(newConfig);
   return transformResponseData(res);
 }
 
-export default axios;
+export default request;
