@@ -16,7 +16,7 @@ export type Method =
 
 export type AxiosRequestHeaders = Record<string, string>;
 export interface AxiosRequestConfig<T = any> {
-  url: string;
+  url?: string;
   method?: Method;
   params?: any;
   data?: T;
