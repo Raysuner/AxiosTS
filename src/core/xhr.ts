@@ -7,8 +7,10 @@ import { transformResponseHeaders } from '../utils/header';
 import { isPlainObject } from '../utils/type';
 import { createError } from '../utils/error';
 
-export function request<R = any>(config: AxiosRequestConfig): AxiosPromise<R> {
-  return new Promise((resolve, reject) => {
+export function xhrRequest<T, R>(
+  config: AxiosRequestConfig<T>
+): AxiosPromise<R> {
+  return new Promise<AxiosResponse>((resolve, reject) => {
     const {
       url = '',
       data = null,
@@ -63,6 +65,6 @@ export function request<R = any>(config: AxiosRequestConfig): AxiosPromise<R> {
       });
     }
 
-    xhr.send(data);
+    xhr.send(data as any);
   });
 }
