@@ -4,7 +4,7 @@ import Axios from './core/axios';
 
 function createAxios(): AxiosInstance {
   const initialAxios = new Axios();
-  const instance = Axios.prototype.request;
+  const instance = Axios.prototype.request.bind(initialAxios);
   extend(instance, initialAxios);
   return instance as AxiosInstance;
 }

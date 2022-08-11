@@ -15,10 +15,13 @@ export function transformRequestUrl(url: string, params?: any) {
   if (!params) {
     return url;
   }
+
   const queryList: string[] = [];
+
   Object.keys(params).forEach((key) => {
     const value = params[key];
     let values: string[] | null = null;
+
     if (value == null) {
       return;
     } else {
@@ -39,6 +42,7 @@ export function transformRequestUrl(url: string, params?: any) {
       queryList.push(`${encode(key)}=${encode(val)}`);
     });
   });
+
   const query = queryList.join('&');
   let finalUrl = url;
 
