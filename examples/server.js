@@ -25,16 +25,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(router);
 
 router.get('/base/get', (req, res) => {
-  res.json({
-    msg: 'hello world'
-  });
+  res.json(req.query);
+});
+
+router.post('/base/post', (req, res) => {
+  res.json(req.body);
 });
 
 router.get('/error/get', (req, res) => {
   res.json(req.query);
 });
 
-router.post('/example-03/post', (req, res) => {
+router.post('/error/post', (req, res) => {
   res.json(req.body);
 });
 
