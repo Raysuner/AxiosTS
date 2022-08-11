@@ -24,13 +24,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(router);
 
-router.get('/example-01/get', (req, res) => {
+router.get('/base/get', (req, res) => {
   res.json({
     msg: 'hello world'
   });
 });
 
-router.get('/example-02/get', (req, res) => {
+router.get('/error/get', (req, res) => {
   res.json(req.query);
 });
 

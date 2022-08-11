@@ -1,7 +1,16 @@
 import axios from '../../src/typing';
 
 axios({
-  url: '/example-02/get',
+  method: 'get',
+  params: {
+    a: 1,
+    b: 2
+  },
+  url: '/base/get'
+});
+
+axios({
+  url: '/error/get',
   params: {
     foo: ['bar', 'baz']
   }
@@ -9,7 +18,7 @@ axios({
 
 axios({
   method: 'get',
-  url: '/example-02/get',
+  url: '/error/get',
   params: {
     foo: {
       bar: 'baz'
@@ -21,7 +30,7 @@ const date = new Date();
 
 axios({
   method: 'get',
-  url: '/example-02/get',
+  url: '/error/get',
   params: {
     date
   }
@@ -29,7 +38,7 @@ axios({
 
 axios({
   method: 'get',
-  url: '/example-02/get',
+  url: '/error/get',
   params: {
     foo: '@:$, '
   }
@@ -37,7 +46,7 @@ axios({
 
 axios({
   method: 'get',
-  url: '/example-02/get',
+  url: '/error/get',
   params: {
     foo: 'bar1',
     baz: null
@@ -46,7 +55,7 @@ axios({
 
 axios({
   method: 'get',
-  url: '/example-02/get#hash',
+  url: '/error/get#hash',
   params: {
     foo: 'bar2'
   }
@@ -54,7 +63,7 @@ axios({
 
 axios({
   method: 'get',
-  url: '/example-02/get?foo=bar',
+  url: '/error/get?foo=bar',
   params: {
     bar: 'baz'
   }
