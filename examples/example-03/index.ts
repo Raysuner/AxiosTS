@@ -1,4 +1,4 @@
-import axios from '../../src';
+import axios from '../../src/typing';
 
 axios({
   method: 'post',
