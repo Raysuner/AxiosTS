@@ -13,7 +13,10 @@ class Axios {
     );
   }
 
-  request<T = any, R = any>(config: AxiosRequestConfig): AxiosPromise<R> {
+  request<T = any, R = any>(url: any, config?: any): AxiosPromise<R> {
+    if (typeof url === 'string') {
+      return request<T, R>({ ...config, url });
+    }
     return request<T, R>(config);
   }
 
