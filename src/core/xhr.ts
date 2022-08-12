@@ -7,10 +7,10 @@ import { transformResponseHeaders } from '../utils/header';
 import { isPlainObject } from '../utils/type';
 import { createError } from '../utils/error';
 
-export function xhrRequest<T, R>(
-  config: AxiosRequestConfig<T>
+export function xhrRequest<R, P>(
+  config: AxiosRequestConfig<P>
 ): AxiosPromise<R> {
-  return new Promise<AxiosResponse>((resolve, reject) => {
+  return new Promise<AxiosResponse<R>>((resolve, reject) => {
     const {
       url = '',
       data = null,

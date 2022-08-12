@@ -15,9 +15,9 @@ function processConfig(config: AxiosRequestConfig) {
   return newConfig;
 }
 
-async function request<T, R>(config: AxiosRequestConfig<T>): AxiosPromise<R> {
+async function request<R, P>(config: AxiosRequestConfig<P>): AxiosPromise<R> {
   const newConfig = processConfig(config);
-  const res = await xhrRequest<T, R>(newConfig);
+  const res = await xhrRequest<R, P>(newConfig);
   return transformResponseData(res);
 }
 

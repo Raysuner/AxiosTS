@@ -2,74 +2,74 @@ import { AxiosPromise, AxiosRequestConfig, Method } from '../typing';
 import request from './request';
 
 class Axios {
-  private _request<T = any, R = any>(
+  private _request<R = any, P = any>(
     url: string,
     method: Method,
-    config?: AxiosRequestConfig<T>,
+    config?: AxiosRequestConfig<P>,
     data?: any
   ): AxiosPromise<R> {
-    return this.request<T, R>(
+    return this.request<R, P>(
       Object.assign(config || {}, { url, method, data: data || {} })
     );
   }
 
-  request<T = any, R = any>(url: any, config?: any): AxiosPromise<R> {
+  request<R = any, P = any>(url: any, config?: any): AxiosPromise<R> {
     if (typeof url === 'string') {
-      return request<T, R>({ ...config, url });
+      return request<R, P>({ ...config, url });
     }
-    return request<T, R>(config);
+    return request<R, P>(config);
   }
 
-  get<T = any, R = any>(
+  get<R = any, P = any>(
     url: string,
-    config?: AxiosRequestConfig<T>
+    config?: AxiosRequestConfig<P>
   ): AxiosPromise<R> {
-    return this._request<T, R>(url, 'get', config);
+    return this._request<R, P>(url, 'get', config);
   }
 
-  delete<T = any, R = any>(
+  delete<R = any, P = any>(
     url: string,
-    config?: AxiosRequestConfig<T>
+    config?: AxiosRequestConfig<P>
   ): AxiosPromise<R> {
-    return this._request(url, 'delete', config);
+    return this._request<R, P>(url, 'delete', config);
   }
 
-  head<T = any, R = any>(
+  head<R = any, P = any>(
     url: string,
-    config?: AxiosRequestConfig<T>
+    config?: AxiosRequestConfig<P>
   ): AxiosPromise<R> {
-    return this._request(url, 'head', config);
+    return this._request<R, P>(url, 'head', config);
   }
 
-  options<T = any, R = any>(
+  options<R = any, P = any>(
     url: string,
-    config?: AxiosRequestConfig<T>
+    config?: AxiosRequestConfig<P>
   ): AxiosPromise<R> {
-    return this._request(url, 'options', config);
+    return this._request<R, P>(url, 'options', config);
   }
 
-  post<T = any, R = any>(
-    url: string,
-    data?: any,
-    config?: AxiosRequestConfig<T>
-  ): AxiosPromise<R> {
-    return this._request(url, 'post', config, data);
-  }
-
-  put<T = any, R = any>(
+  post<R = any, P = any>(
     url: string,
     data?: any,
-    config?: AxiosRequestConfig<T>
+    config?: AxiosRequestConfig<P>
   ): AxiosPromise<R> {
-    return this._request(url, 'put', config, data);
+    return this._request<R, P>(url, 'post', config, data);
   }
 
-  patch<T = any, R = any>(
+  put<R = any, P = any>(
     url: string,
     data?: any,
-    config?: AxiosRequestConfig<T>
+    config?: AxiosRequestConfig<P>
   ): AxiosPromise<R> {
-    return this._request(url, 'patch', config, data);
+    return this._request<R, P>(url, 'put', config, data);
+  }
+
+  patch<R = any, P = any>(
+    url: string,
+    data?: any,
+    config?: AxiosRequestConfig<P>
+  ): AxiosPromise<R> {
+    return this._request<R, P>(url, 'patch', config, data);
   }
 }
 
