@@ -1,7 +1,26 @@
-import { AxiosPromise, AxiosRequestConfig, Method } from '../typing';
+import {
+  AxiosPromise,
+  AxiosRequestConfig,
+  AxiosResponse,
+  Interceptor,
+  Method
+} from '../typing';
+import InterceptorManager from './interceptors';
 import request from './request';
 
+interface Interceptors {
+  request: InterceptorManager<AxiosRequestConfig>;
+  response: InterceptorManager<AxiosResponse>;
+}
+
+type PromiseList<T> = Array<Interceptor<T>>;
+
 class Axios {
+  private interceptors: Interceptors = {
+    request: new InterceptorManager<AxiosRequestConfig>(),
+    response: new InterceptorManager<AxiosResponse>()
+  };
+
   private _request<R = any, P = any>(
     url: string,
     method: Method,
@@ -14,10 +33,36 @@ class Axios {
   }
 
   request<R = any, P = any>(url: any, config?: any): AxiosPromise<R> {
+    let newConfig = { ...config };
+
     if (typeof url === 'string') {
-      return request<R, P>({ ...config, url });
+      newConfig.url = url;
+    } else {
+      newConfig = url;
     }
-    return request<R, P>(config);
+
+    let promise = Promise.resolve(newConfig);
+    const promiseList: PromiseList<any> = [
+      {
+        resolveFn: request,
+        rejectFn: undefined
+      }
+    ];
+
+    this.interceptors.request.forEach((interceptor) => {
+      promiseList.unshift(interceptor);
+    });
+
+    this.interceptors.response.forEach((interceptor) => {
+      promiseList.push(interceptor);
+    });
+
+    while (promiseList.length) {
+      const { resolveFn, rejectFn } = promiseList.shift()!;
+      promise = promise.then(resolveFn, rejectFn);
+    }
+
+    return promise;
   }
 
   get<R = any, P = any>(
