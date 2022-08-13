@@ -16,11 +16,8 @@ interface Interceptors {
 type PromiseList<T> = Array<Interceptor<T>>;
 
 class Axios {
-  private interceptors: Interceptors = {
-    request: new InterceptorManager<AxiosRequestConfig>(),
-    response: new InterceptorManager<AxiosResponse>()
-  };
-
+  private interceptors: Interceptors;
+  private defaults: AxiosRequestConfig;
   private _request<R = any, P = any>(
     url: string,
     method: Method,
@@ -30,6 +27,14 @@ class Axios {
     return this.request<R, P>(
       Object.assign(config || {}, { url, method, data: data || {} })
     );
+  }
+
+  constructor(initConfig: AxiosRequestConfig) {
+    this.interceptors = {
+      request: new InterceptorManager<AxiosRequestConfig>(),
+      response: new InterceptorManager<AxiosResponse>()
+    };
+    this.defaults = initConfig;
   }
 
   request<R = any, P = any>(url: any, config?: any): AxiosPromise<R> {
