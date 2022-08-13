@@ -59,6 +59,10 @@ router.get('/error/timeout', function (req, res) {
   }, 3000);
 });
 
+router.get('/interceptor/get', function (req, res) {
+  res.end('hello');
+});
+
 app.listen(8000, () => {
   console.log(`server listen at port 8000, press ctrl + c to stop`);
 });
