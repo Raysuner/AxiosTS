@@ -89,10 +89,34 @@ export interface Axios {
   ): AxiosPromise<R>;
 }
 
+interface Interceptors {
+  request: InterceptorManager<AxiosRequestConfig>;
+  response: InterceptorManager<AxiosResponse>;
+}
+
 export interface AxiosInstance extends Axios {
+  interceptors: Interceptors;
   <T = any, R = any>(config: AxiosRequestConfig<T>): AxiosPromise<R>;
   <T = any, R = any>(
     url: string,
     config?: AxiosRequestConfig<T>
   ): AxiosPromise<R>;
+}
+
+export interface ResolvedFn<T> {
+  (val: T): T | Promise<T>;
+}
+
+export interface RejectedFn {
+  (error: any): any;
+}
+
+export interface InterceptorManager<T> {
+  use(resolve: ResolvedFn<T>, reject?: RejectedFn): number;
+  eject(id: number): void;
+}
+
+export interface Interceptor<T> {
+  resolveFn: ResolvedFn<T>;
+  rejectFn?: RejectedFn;
 }
