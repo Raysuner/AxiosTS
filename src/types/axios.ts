@@ -14,7 +14,7 @@ export type Method =
   | 'options'
   | 'OPTIONS';
 
-export type AxiosRequestHeaders = Record<string, string>;
+export type AxiosRequestHeaders = Record<string, any>;
 export interface AxiosRequestConfig<T = any> {
   url?: string;
   method?: Method;
@@ -47,7 +47,14 @@ export interface AxiosError extends Error {
   isAxiosError: boolean;
 }
 
+interface Interceptors {
+  request: InterceptorManager<AxiosRequestConfig>;
+  response: InterceptorManager<AxiosResponse>;
+}
+
 export interface Axios {
+  interceptors: Interceptors;
+  defaults: AxiosRequestConfig;
   request<T = any, R = any>(config: AxiosRequestConfig<T>): AxiosPromise<R>;
 
   get<T = any, R = any>(
@@ -89,13 +96,7 @@ export interface Axios {
   ): AxiosPromise<R>;
 }
 
-interface Interceptors {
-  request: InterceptorManager<AxiosRequestConfig>;
-  response: InterceptorManager<AxiosResponse>;
-}
-
 export interface AxiosInstance extends Axios {
-  interceptors: Interceptors;
   <T = any, R = any>(config: AxiosRequestConfig<T>): AxiosPromise<R>;
   <T = any, R = any>(
     url: string,
