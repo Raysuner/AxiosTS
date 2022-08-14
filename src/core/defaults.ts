@@ -3,7 +3,9 @@ import { AxiosRequestConfig } from '../typing';
 const defaults: AxiosRequestConfig = {
   method: 'get',
   timeout: 0,
-  headers: {}
+  headers: {
+    common: {}
+  }
 };
 
 const methodListWithData = ['post', 'patch', 'put'];
