@@ -42,5 +42,8 @@
   },
   "lint-staged": {
     "**/*.{js,ts}": "pnpm run lint"
+  },
+  "dependencies": {
+    "qs": "^6.11.0"
   }
 }
