@@ -6,6 +6,7 @@ import {
   Method
 } from '../typing';
 import InterceptorManager from './interceptors';
+import mergeConfig from './mergeConfig';
 import request from './request';
 
 interface Interceptors {
@@ -46,6 +47,7 @@ class Axios {
       newConfig = url;
     }
 
+    newConfig = mergeConfig(this.defaults, newConfig);
     let promise = Promise.resolve(newConfig);
     const promiseList: PromiseList<any> = [
       {
@@ -57,7 +59,6 @@ class Axios {
     this.interceptors.request.forEach((interceptor) => {
       promiseList.unshift(interceptor);
     });
-
     this.interceptors.response.forEach((interceptor) => {
       promiseList.push(interceptor);
     });
