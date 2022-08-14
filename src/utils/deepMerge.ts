@@ -6,7 +6,7 @@ export default function deepMerge(...objList: any[]): any {
     Object.keys(obj).forEach((key) => {
       const value = obj[key];
       if (isPlainObject(value)) {
-        if (mergeResult[key]) {
+        if (isPlainObject(mergeResult[key])) {
           mergeResult[key] = deepMerge(mergeResult[key], value);
         } else {
           mergeResult[key] = deepMerge({}, value);
