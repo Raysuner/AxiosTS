@@ -1,11 +1,24 @@
-import { AxiosRequestConfig } from '../typing';
+import { AxiosRequestConfig, AxiosResponse } from '../typing';
+import { transformRequestData, transformResponseData } from '../utils/data';
+import { transformRequestHeaders } from '../utils/header';
 
 const defaults: AxiosRequestConfig = {
   method: 'get',
   timeout: 0,
   headers: {
     common: {}
-  }
+  },
+  transformRequest: [
+    function (config: AxiosRequestConfig | AxiosResponse) {
+      config.headers = transformRequestHeaders(config.headers, config.data);
+      return transformRequestData(config.data);
+    }
+  ],
+  transformResponse: [
+    function (data: AxiosResponse | AxiosRequestConfig) {
+      return transformResponseData(data);
+    }
+  ]
 };
 
 const methodListWithData = ['post', 'patch', 'put'];
