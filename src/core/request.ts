@@ -2,6 +2,7 @@ import { AxiosPromise, AxiosRequestConfig } from '../types/axios';
 import { transformRequestUrl } from '../utils/url';
 import { transformRequestData, transformResponseData } from '../utils/data';
 import { transformRequestHeaders } from '../utils/header';
+import flattenHeaders from '../utils/flattenHeaders';
 import { xhrRequest } from './xhr';
 
 function processConfig(config: AxiosRequestConfig) {
@@ -9,7 +10,10 @@ function processConfig(config: AxiosRequestConfig) {
   const newConfig: AxiosRequestConfig = {
     ...config,
     url: transformRequestUrl(url!, params),
-    headers: transformRequestHeaders(headers, data),
+    headers: flattenHeaders(
+      transformRequestHeaders(headers, data),
+      config.method!
+    ),
     data: transformRequestData(data)
   };
   return newConfig;
