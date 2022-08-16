@@ -23,6 +23,8 @@ export interface AxiosRequestConfig<T = any> {
   headers?: AxiosRequestHeaders;
   responseType?: XMLHttpRequestResponseType;
   timeout?: number;
+  transformRequest?: Transformer | Transformer[];
+  transformResponse?: Transformer | Transformer[];
 }
 
 export type AxiosResponseHeaders = Record<string, string> & {
@@ -120,4 +122,9 @@ export interface InterceptorManager<T> {
 export interface Interceptor<T> {
   resolveFn: ResolvedFn<T>;
   rejectFn?: RejectedFn;
+}
+
+export interface Transformer {
+  (config: AxiosRequestConfig): any;
+  (data: AxiosResponse): any;
 }
