@@ -17,7 +17,7 @@ methodListWithoutData.forEach((method) => {
 
 methodListWithData.forEach((method) => {
   defaults.headers![method] = {
-    'Content-Type': 'application/json;charset=utf-8'
+    'Content-Type': 'application/x-www-form-urlencoded'
   };
 });
 
