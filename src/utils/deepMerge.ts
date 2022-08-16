@@ -1,6 +1,6 @@
 import { isPlainObject } from './type';
 
-export default function deepMerge(...objList: any[]): any {
+export default function deepMerge(...objList: any[]): Record<string, any> {
   const mergeResult = Object.create(null);
   objList.forEach((obj) => {
     Object.keys(obj).forEach((key) => {
