@@ -63,6 +63,10 @@ router.get('/interceptor/get', function (req, res) {
   res.end('hello');
 });
 
+router.post('/config/post', function (req, res) {
+  res.json(res.body);
+});
+
 app.listen(8000, () => {
   console.log(`server listen at port 8000, press ctrl + c to stop`);
 });
