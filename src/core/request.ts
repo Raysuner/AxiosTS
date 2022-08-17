@@ -5,12 +5,12 @@ import { xhrRequest } from './xhr';
 import transform from './transform';
 
 function processConfig(config: AxiosRequestConfig) {
-  const { url, method, params, data, transformRequest } = config;
+  const { url, method, params, transformRequest } = config;
   const newConfig: AxiosRequestConfig = {
     ...config
   };
   newConfig.url = transformRequestUrl(url!, params);
-  newConfig.data = transform(data, transformRequest!);
+  newConfig.data = transform(newConfig, transformRequest!);
   newConfig.headers = flattenHeaders(newConfig.headers!, method!);
   return newConfig;
 }
